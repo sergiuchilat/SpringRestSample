@@ -1,42 +1,40 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Country;
+import com.example.demo.repository.CountriesRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 @RestController
 public class CountriesController {
-    List<Country> countries = new ArrayList<>();
+    CountriesRepository countriesRepository = new CountriesRepository();
 
     @GetMapping( path = "countries", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Country> get() {
-        return countries;
+        return countriesRepository.get();
     }
 
     @GetMapping(path = "countries/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Country get(@PathVariable Integer id) {
-        return getCountryById(id);
+        return countriesRepository.get(id);
     }
 
     @PostMapping(path = "countries", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Country create(@RequestBody Country country){
-        Country newCountry = new Country(country.getName());
-        countries.add(newCountry);
-        return newCountry;
-    }
-    @PutMapping(path = "countries/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Country update(@PathVariable Integer id, @RequestBody Country country){
-        country.setId(id);
-        countries.set(countries.indexOf(getCountryById(id)), country);
-        return country;
+        return countriesRepository.create(country);
     }
 
-    private Country getCountryById(Integer id){
-        return countries.stream().filter(el -> el.getId().equals(id)).findFirst().get();
+    @PutMapping(path = "countries/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Country update(@PathVariable Integer id, @RequestBody Country country){
+        return countriesRepository.update(id, country);
+    }
+
+    @DeleteMapping(path = "countries/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Country delete(@PathVariable Integer id){
+        return countriesRepository.delete(id);
     }
 }
