@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
 public class Country {
-    Integer id = 1;
-    String name = null;
+    private Integer id = 1;
+    private String name = null;
     public static Integer autoincrement = 1;
     public Country(String name){
         this.id = autoincrement;
@@ -16,6 +16,14 @@ public class Country {
 
     public String getName(){
         return this.name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
