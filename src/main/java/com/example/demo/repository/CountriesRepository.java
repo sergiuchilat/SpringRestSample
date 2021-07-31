@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Country;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;

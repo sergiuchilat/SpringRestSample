@@ -4,8 +4,6 @@ import com.example.demo.model.Country;
 import com.example.demo.repository.CountriesRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 

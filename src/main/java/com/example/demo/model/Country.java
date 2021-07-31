@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 public class Country {
     private Integer id = 1;
-    private String name = null;
+    private String name;
     public static Integer autoincrement = 1;
 
     public Country(String name){
