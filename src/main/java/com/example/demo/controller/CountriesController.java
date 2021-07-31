@@ -25,15 +25,13 @@ public class CountriesController {
         return countries.stream().filter(el -> el.getId().equals(id)).findFirst().get();
     }
 
-    @PostMapping(path = "countries", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "countries", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Country create(@RequestBody Country country){
-        System.out.println(country);
-        /*System.out.println(country.toString());
         Country newCountry = new Country(country.getName());
-        countries.add(newCountry);*/
-        return null;
+        countries.add(newCountry);
+        return newCountry;
     }
-    @PutMapping(path = "countries/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(path = "countries/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Country update(@PathVariable Integer id, @RequestBody Country country){
         countries.set(0, country);
         return country;
