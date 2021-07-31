@@ -4,10 +4,16 @@ public class Country {
     private Integer id = 1;
     private String name = null;
     public static Integer autoincrement = 1;
+
     public Country(String name){
         this.id = autoincrement;
         this.name = name;
         autoincrement++;
+    }
+
+    public Country(Integer id, String name){
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {

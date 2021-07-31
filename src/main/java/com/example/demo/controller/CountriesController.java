@@ -4,16 +4,14 @@ import com.example.demo.model.Country;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 @RestController
 public class CountriesController {
-    List<Country> countries = Arrays.asList(
-            new Country("Moldova"),
-            new Country("Romania")
-    );
+    List<Country> countries = new ArrayList<>();
 
     @GetMapping( path = "countries", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Country> get() {
@@ -22,7 +20,7 @@ public class CountriesController {
 
     @GetMapping(path = "countries/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Country get(@PathVariable Integer id) {
-        return countries.stream().filter(el -> el.getId().equals(id)).findFirst().get();
+        return getCountryById(id);
     }
 
     @PostMapping(path = "countries", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -33,7 +31,12 @@ public class CountriesController {
     }
     @PutMapping(path = "countries/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Country update(@PathVariable Integer id, @RequestBody Country country){
-        countries.set(0, country);
+        country.setId(id);
+        countries.set(countries.indexOf(getCountryById(id)), country);
         return country;
+    }
+
+    private Country getCountryById(Integer id){
+        return countries.stream().filter(el -> el.getId().equals(id)).findFirst().get();
     }
 }
